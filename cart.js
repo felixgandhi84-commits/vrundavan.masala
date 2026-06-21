@@ -22,33 +22,46 @@ function loadCart(){
     total += itemTotal;
 
         cartDiv.innerHTML += `
-        <div class="cart-item">
+<div class="cart-item">
 
-            <div>
-                <h3>${item.name}</h3>
-                <p>₹${item.price}</p>
-            </div>
+    <div class="cart-image">
+        <img src="${item.image}" alt="${item.name}">
+    </div>
 
-            <div>
+    <div class="cart-details">
 
-                <button onclick="decreaseQty(${index})">
-                    -
-                </button>
+        <h3>${item.name}</h3>
 
-                ${quantity}
+        <p class="price">₹${item.price}</p>
 
-                <button onclick="increaseQty(${index})">
-                    +
-                </button>
+        <p class="qty-price">
+            ₹${item.price} × ${quantity}
+        </p>
 
-                <button onclick="removeItem(${index})">
-                    ❌
-                </button>
+        <p class="subtotal">
+            Subtotal: ₹${itemTotal}
+        </p>
 
-            </div>
+    </div>
 
-        </div>
-        `;
+    <div class="cart-actions">
+
+        <button onclick="decreaseQty(${index})">
+            -
+        </button>
+
+        <span>${quantity}</span>
+
+        <button onclick="increaseQty(${index})">
+            +
+        </button>
+
+        
+
+    </div>
+
+</div>
+`;
     });
 
     document.getElementById("total-price").innerText =
@@ -77,6 +90,10 @@ function decreaseQty(index){
     if(cartItems[index].quantity > 1){
 
         cartItems[index].quantity--;
+
+    }else{
+
+        cartItems.splice(index,1);
 
     }
 

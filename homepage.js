@@ -164,9 +164,10 @@ function updateHomeCard(card){
         cartControl.innerHTML = `
         <button onclick="
         addToCart(
-        '${fullName}',
-        ${product.prices[weight]}
-        );
+'${fullName}',
+${product.prices[weight]},
+'${product.image}'
+);
         refreshHomeProducts();
         ">
         Add To Cart

@@ -101,7 +101,7 @@ ${qty > 0 ?
 decreaseProductQty('${fullName}');
 refreshProducts();
 ">
---
+-
 
 </button>
 
@@ -132,7 +132,13 @@ let price=products.find(
 p=>p.name===productName
 ).prices[weight];
 
-addToCart(fullName,price);
+addToCart(
+    fullName,
+    price,
+    products.find(
+        p => p.name === productName
+    ).image
+);
 
 refreshProducts();
 ">
@@ -219,9 +225,10 @@ function updateSelectedWeight(select){
         ).prices['${weight}'];
 
         addToCart(
-        '${fullName}',
-        price
-        );
+'${fullName}',
+price,
+'${product.image}'
+);
 
         refreshProducts();
         ">

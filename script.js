@@ -12,7 +12,7 @@ function orderNow(product) {
         "https://wa.me/" + number + "?text=" + message,
         "_blank"
     );}
-function addToCart(product, price) {
+function addToCart(product, price, image) {
     console.log("Product:", product);
 console.log("Price:", price);
 
@@ -33,10 +33,11 @@ console.log("Price:", price);
     }
     else{
         cartItems.push({
-            name: product,
-            price: Number(price),
-            quantity: 1
-        });
+    name: product,
+    price: Number(price),
+    image: image,
+    quantity: 1
+});
     }
 
     localStorage.setItem(
