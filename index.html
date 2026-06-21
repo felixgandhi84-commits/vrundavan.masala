@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vrundavan Masala</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+    <img src="images/logo3.png" alt="Vrundavan Masala">
+</div>
+
+    <input
+    type="text"
+    id="searchInput"
+    placeholder="Search Masala..."
+    onkeyup="searchProducts()">
+    
+    <nav>
+        <a href="index.html">Home</a>
+<a href="products.html">Products</a>
+        
+        <a href="login.html" id="user-name">Login</a>
+        <a href="#" id="logout-btn" onclick="logoutUser()" style="display:none;">
+        Logout
+    </a>
+        <a href="cart.html">
+    Cart 🛒 <span id="cart-count">0</span>
+</a>
+
+    </nav>
+</header>
+
+<section class="hero" id="hero-section">
+    <h1>Pure & Authentic Indian Masala</h1>
+    <p>Freshly packed spices delivered to your doorstep.</p>
+    <a href="#home-products">
+    <button>Shop Now</button>
+</a>
+</section>
+<section class="about" id="about-section">
+    <h2>About Vrundavan Masala</h2>
+    <p>
+        Vrundavan Masala provides premium quality Indian spices and masala
+        made with authentic ingredients and traditional recipes.
+        Our mission is to deliver fresh and pure masala to every household.
+    </p>
+</section>
+<section class="featured-heading" id="featured-section">
+
+    <span>🌶️ Vrundavan Special</span>
+
+    <h2>Best Selling Masalas</h2>
+
+    <p>
+        Handpicked customer favorites loved across Surat and beyond.
+    </p>
+
+</section>
+<section id="home-products" class="products">
+
+</section>
+<div style="text-align:center; margin:40px;">
+    <a href="products.html">
+        <button class="show-products-btn">
+            Explore All Products →
+        </button>
+    </a>
+</div>
+
+<footer>
+    <p>© 2026 Vrundavan Masala. All Rights Reserved.</p>
+</footer>
+<section class="contact">
+
+    <div class="contact-content">
+
+        <span>GET IN TOUCH</span>
+
+        <h2>Contact Vrundavan Masala</h2>
+
+        <p class="contact-text">
+            Have questions about our products or want to place a bulk order?
+            We're here to help.
+        </p>
+
+        <div class="contact-cards">
+
+            <div class="contact-card">
+                <h3>📍 Address</h3>
+                <p>
+📍
+<a href="https://share.google/AzZbZ0ZHq3SCevbZf" target="_blank">
+    Pushpa Nagar-1, Bhathena, Surat
+</a>
+</p>        </div>
+
+            <div class="contact-card">
+                <h3>📞 Call Us</h3>
+                <p>7405648909</p>
+            </div>
+
+            <div class="contact-card">
+                <h3>💬 WhatsApp</h3>
+                <p>
+                    7405648909<br>
+                    8849421756
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<script src="products.js"></script>
+<script src="script.js"></script>
+<script src="homepage.js"></script>
+<a href="https://wa.me/917405648909" class="whatsapp-float" target="_blank">
+    💬
+</a>
+
+</body>
+
+</html>

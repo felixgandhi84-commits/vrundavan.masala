@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout - Vrundavan Masala</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="form-container">
+
+    <h2>Checkout</h2>
+    <h3>Your Order</h3>
+
+<div id="order-summary"></div>
+
+<h3 id="checkout-total"></h3>
+<p id="delivery-info">
+    🚚 Delivery Charges: As per courier charges.
+    Final amount will be confirmed after order verification.
+</p>
+
+    <input type="text" id="customerName"
+           placeholder="Enter Full Name">
+
+    <input type="text" id="customerMobile"
+           placeholder="Enter Mobile Number">
+
+    <textarea id="customerAddress"
+              placeholder="Enter Complete Address"
+              rows="5"></textarea>
+
+    <button onclick="placeOrder()">
+        Place Order
+    </button>
+
+</div>
+
+<script src="checkout.js"></script>
+
+</body>
+</html>
