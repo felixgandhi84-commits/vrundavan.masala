@@ -1,5 +1,3 @@
-import { auth } from "./firebase.js";
-
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
@@ -24,9 +22,12 @@ const db = getFirestore(app);
 
 async function loadOrders(){
 
-    if(!auth.currentUser){
+    let userUID =
+    localStorage.getItem("userUID");
 
-        alert("Please login first");
+    if(!userUID){
+
+        alert("Please Login First");
 
         window.location.href =
         "login.html";
@@ -48,7 +49,7 @@ async function loadOrders(){
 
         let order = doc.data();
 
-        if(order.uid === auth.currentUser.uid){
+        if(order.uid === userUID){
 
             let productsHTML = "";
 
@@ -66,16 +67,15 @@ async function loadOrders(){
             <div class="order-card">
 
                 <h3>
-                    Status:
-                    ${order.status}
+                    Status: ${order.status}
                 </h3>
 
                 <p>
-                    Total:
-                    ₹${order.total}
+                    Total: ₹${order.total}
                 </p>
 
                 <p>
+                    Order Date:
                     ${new Date(order.orderDate)
                     .toLocaleString()}
                 </p>
@@ -88,6 +88,15 @@ async function loadOrders(){
             `;
         }
     });
+
+    if(ordersDiv.innerHTML === ""){
+
+        ordersDiv.innerHTML = `
+        <p style="text-align:center;">
+            No Orders Found
+        </p>
+        `;
+    }
 }
 
 loadOrders();
