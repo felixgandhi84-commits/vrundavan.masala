@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 async function loadOrders(){
-
+    alert("Orders page loaded");
     let userUID =
     localStorage.getItem("userUID");
 
