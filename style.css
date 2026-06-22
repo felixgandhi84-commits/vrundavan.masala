@@ -2279,3 +2279,72 @@ textarea{
         padding-bottom:30px;
     }
 }
+.success-container{
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:20px;
+}
+
+.success-icon{
+    font-size:80px;
+    margin-bottom:20px;
+}
+
+.success-container h1{
+    color:#22c55e;
+    margin-bottom:15px;
+}
+
+.success-container p{
+    color:#666;
+    margin-bottom:10px;
+    max-width:500px;
+}
+
+.home-btn{
+    margin-top:20px;
+
+    background:#22c55e;
+    color:white;
+
+    border:none;
+
+    padding:15px 25px;
+
+    border-radius:12px;
+
+    font-size:16px;
+    font-weight:600;
+
+    cursor:pointer;
+}
+.order-card{
+    background:white;
+
+    padding:20px;
+
+    margin-top:20px;
+
+    border-radius:15px;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,.08);
+}
+
+.order-card h3{
+    color:#22c55e;
+    margin-bottom:10px;
+}
+
+.order-card ul{
+    margin-top:10px;
+    padding-left:20px;
+}

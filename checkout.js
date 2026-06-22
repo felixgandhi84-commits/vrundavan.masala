@@ -1,3 +1,10 @@
+import {
+db,
+collection,
+addDoc
+}
+from "./firebase.js";
+
 let cartItems =
 JSON.parse(localStorage.getItem("cartItems")) || [];
 
@@ -27,7 +34,7 @@ cartItems.forEach(function(item){
 document.getElementById("checkout-total").innerText =
     "Total = ₹" + total;
 
-function placeOrder() {
+async function placeOrder(){
 
     let name =
         document.getElementById("customerName").value.trim();
@@ -58,44 +65,49 @@ function placeOrder() {
 
     let total = 0;
 
-    let message =
-        "Hello Vrundavan Masala,%0A%0AOrder Details:%0A";
+    cartItems.forEach(item => {
 
-    cartItems.forEach(function(item){
+        total +=
+        item.price *
+        (item.quantity || 1);
 
-        let quantity = item.quantity || 1;
-
-        let itemTotal =
-            item.price * quantity;
-
-        total += itemTotal;
-
-        message +=
-            "- " + item.name +
-            " × " + quantity +
-            " = ₹" + itemTotal +
-            "%0A";
     });
 
-    message +=
-        "%0A Total = ₹" + total;
+    try{
 
-    message +=
-        "%0A🚚 Delivery Charges: As per courier charges";
+        await addDoc(
+            collection(db,"orders"),
+            {
+                customerName: name,
+                mobile: mobile,
+                address: address,
 
-    message +=
-        "%0A%0AName: " + name;
+                products: cartItems,
 
-    message +=
-        "%0AMobile: " + mobile;
+                total: total,
 
-    message +=
-        "%0AAddress: " + address;
+                status: "Confirmed",
 
-    window.open(
-        "https://wa.me/917405648909?text=" + message,
-        "_blank"
-    );
+                orderDate:
+                new Date().toISOString()
+            }
+        );
 
-    localStorage.removeItem("cartItems");
+        localStorage.removeItem("cartItems");
+
+        window.location.href =
+        "success.html";
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+        "Order save failed!"
+        );
+
+    }
 }
+
+window.placeOrder = placeOrder;
