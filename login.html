@@ -7,20 +7,32 @@
 <body>
 
 <div class="form-container">
-    <h2>Login</h2>
 
-    <input type="email" id="loginEmail" placeholder="Enter Email">
-<input type="password" id="loginPassword" placeholder="Enter Password">
+    <h2>Login With Mobile OTP</h2>
 
-<button onclick="loginUser()">Login</button>
+    <input
+    type="text"
+    id="phoneNumber"
+    placeholder="+917405648909">
 
-<p>
-    Don't have an account?
-    <a href="signup.html">Sign Up</a>
-</p>
+    <div id="recaptcha-container"></div>
 
-<script src="login.js"></script>
+    <button onclick="sendOTP()">
+        Send OTP
+    </button>
+
+    <input
+    type="text"
+    id="otp"
+    placeholder="Enter OTP">
+
+    <button onclick="verifyOTP()">
+        Verify OTP
+    </button>
+
 </div>
+
+<script type="module" src="login.js"></script>
 
 </body>
 </html>

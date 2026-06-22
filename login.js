@@ -1,25 +1,94 @@
-function loginUser() {
+import { auth } from "./firebase.js";
 
-    let email = document.getElementById("loginEmail").value;
-    let password = document.getElementById("loginPassword").value;
+import {
+RecaptchaVerifier,
+signInWithPhoneNumber
+}
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-    let savedEmail = localStorage.getItem("email");
-    let savedPassword = localStorage.getItem("password");
+window.recaptchaVerifier =
+new RecaptchaVerifier(
+auth,
+"recaptcha-container",
+{
+    size: "normal"
+}
+);
 
-    if(email === savedEmail && password === savedPassword){
+window.sendOTP = async function(){
+
+    let phoneNumber =
+    document
+    .getElementById("phoneNumber")
+    .value
+    .trim();
+
+    try{
+
+        let confirmationResult =
+        await signInWithPhoneNumber(
+            auth,
+            phoneNumber,
+            window.recaptchaVerifier
+        );
+
+        window.confirmationResult =
+        confirmationResult;
+
+        alert("OTP Sent!");
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+        "Failed to send OTP"
+        );
+
+    }
+};
+
+window.verifyOTP = async function(){
+
+    let otp =
+    document
+    .getElementById("otp")
+    .value
+    .trim();
+
+    try{
+
+        let result =
+        await window.confirmationResult.confirm(
+            otp
+        );
 
         localStorage.setItem(
             "loggedInUser",
-            localStorage.getItem("name")
+            result.user.phoneNumber
         );
 
-        alert("Login Successful!");
+        localStorage.setItem(
+            "userUID",
+            result.user.uid
+        );
 
-        window.location.href = "index.html";
+        alert(
+        "Login Successful!"
+        );
 
-    }else{
-
-        alert("Invalid Email or Password");
+        window.location.href =
+        "index.html";
 
     }
-}
+    catch(error){
+
+        console.error(error);
+
+        alert(
+        "Invalid OTP"
+        );
+
+    }
+};
