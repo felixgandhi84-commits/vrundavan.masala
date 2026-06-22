@@ -49,7 +49,7 @@ async function loadOrders(){
 
         let order = doc.data();
 
-        if(order.uid === userUID){
+        if(true){
 
             let productsHTML = "";
 
