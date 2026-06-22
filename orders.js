@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 async function loadOrders(){
-    alert("Orders page loaded");
+
     let userUID =
     localStorage.getItem("userUID");
 
@@ -49,35 +49,46 @@ async function loadOrders(){
 
         let order = doc.data();
 
-        if(true){
+        if(order.uid === userUID){
 
             let productsHTML = "";
 
-            order.products.forEach(p => {
+            if(
+                order.products &&
+                Array.isArray(order.products)
+            ){
 
-                productsHTML += `
-                <li>
-                    ${p.name}
-                    × ${p.quantity}
-                </li>
-                `;
-            });
+                order.products.forEach(p => {
+
+                    productsHTML += `
+                    <li>
+                        ${p.name}
+                        × ${p.quantity}
+                    </li>
+                    `;
+                });
+
+            }else{
+
+                productsHTML =
+                "<li>No product details found</li>";
+
+            }
 
             ordersDiv.innerHTML += `
             <div class="order-card">
 
                 <h3>
-                    Status: ${order.status}
+                    Status: ${order.status || "Confirmed"}
                 </h3>
 
                 <p>
-                    Total: ₹${order.total}
+                    Total: ₹${order.total || 0}
                 </p>
 
                 <p>
                     Order Date:
-                    ${new Date(order.orderDate)
-                    .toLocaleString()}
+                    ${order.orderDate || ""}
                 </p>
 
                 <ul>
