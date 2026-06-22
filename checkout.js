@@ -1,3 +1,4 @@
+import { auth } from "./firebase.js";
 import {
 db,
 collection,
@@ -35,6 +36,15 @@ document.getElementById("checkout-total").innerText =
     "Total = ₹" + total;
 
 async function placeOrder(){
+    if(!auth.currentUser){
+
+    alert("Please login first.");
+
+    window.location.href =
+    "login.html";
+
+    return;
+}
 
     let name =
         document.getElementById("customerName").value.trim();
@@ -78,6 +88,8 @@ async function placeOrder(){
         await addDoc(
             collection(db,"orders"),
             {
+                uid: auth.currentUser.uid,
+email: auth.currentUser.email,
                 customerName: name,
                 mobile: mobile,
                 address: address,

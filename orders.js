@@ -1,3 +1,5 @@
+import { auth } from "./firebase.js";
+
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
@@ -17,19 +19,20 @@ const firebaseConfig = {
   appId: "1:311444034414:web:e9b83fb0b679b71964677f"
 };
 
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 async function loadOrders(){
 
-    let mobile =
-    document
-    .getElementById("searchMobile")
-    .value
-    .trim();
+    if(!auth.currentUser){
+
+        alert("Please login first");
+
+        window.location.href =
+        "login.html";
+
+        return;
+    }
 
     let ordersDiv =
     document.getElementById("orders-list");
@@ -38,14 +41,14 @@ async function loadOrders(){
 
     const snapshot =
     await getDocs(
-    collection(db,"orders")
+        collection(db,"orders")
     );
 
     snapshot.forEach(doc => {
 
         let order = doc.data();
 
-        if(order.mobile === mobile){
+        if(order.uid === auth.currentUser.uid){
 
             let productsHTML = "";
 
@@ -63,13 +66,18 @@ async function loadOrders(){
             <div class="order-card">
 
                 <h3>
-                    Order Status:
+                    Status:
                     ${order.status}
                 </h3>
 
                 <p>
                     Total:
                     ₹${order.total}
+                </p>
+
+                <p>
+                    ${new Date(order.orderDate)
+                    .toLocaleString()}
                 </p>
 
                 <ul>
@@ -82,5 +90,4 @@ async function loadOrders(){
     });
 }
 
-window.loadOrders =
-loadOrders;
+loadOrders();
