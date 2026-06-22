@@ -11,7 +11,7 @@ new RecaptchaVerifier(
 auth,
 "recaptcha-container",
 {
-    size: "normal"
+    size: "compact"
 }
 );
 
