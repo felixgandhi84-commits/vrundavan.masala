@@ -1,7 +1,7 @@
 let adminEmail =
 localStorage.getItem("loggedInUser");
 
-if(adminEmail !== "YOUR_EMAIL@gmail.com"){
+if(adminEmail !== "felixgandhi84@gmail.com"){
 
     alert("Access Denied");
 
