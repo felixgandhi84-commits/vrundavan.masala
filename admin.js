@@ -4,7 +4,9 @@ from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
 getFirestore,
 collection,
-getDocs
+getDocs,
+doc,
+updateDoc
 }
 from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
@@ -55,9 +57,10 @@ async function loadAllOrders(){
         collection(db,"orders")
     );
 
-    snapshot.forEach(doc => {
+    snapshot.forEach(orderDoc => {
 
-        let order = doc.data();
+        let order =
+        orderDoc.data();
 
         let productsHTML = "";
 
@@ -87,8 +90,39 @@ async function loadAllOrders(){
         <div class="order-card">
 
             <h3>
-                Status: ${order.status || "Confirmed"}
+                Order Status:
             </h3>
+
+            <select
+            onchange="updateStatus(
+            '${orderDoc.id}',
+            this.value)">
+            
+                <option value="Confirmed"
+                ${order.status==="Confirmed"
+                ?"selected":""}>
+                Confirmed
+                </option>
+
+                <option value="Packed"
+                ${order.status==="Packed"
+                ?"selected":""}>
+                Packed
+                </option>
+
+                <option value="Shipped"
+                ${order.status==="Shipped"
+                ?"selected":""}>
+                Shipped
+                </option>
+
+                <option value="Delivered"
+                ${order.status==="Delivered"
+                ?"selected":""}>
+                Delivered
+                </option>
+
+            </select>
 
             <p>
                 <b>Name:</b>
@@ -132,5 +166,33 @@ async function loadAllOrders(){
         `;
     }
 }
+
+window.updateStatus =
+async function(orderId,newStatus){
+
+    try{
+
+        await updateDoc(
+            doc(db,"orders",orderId),
+            {
+                status:newStatus
+            }
+        );
+
+        alert(
+        "Status Updated Successfully!"
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+        "Status Update Failed!"
+        );
+
+    }
+};
 
 loadAllOrders();
