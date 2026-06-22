@@ -60,7 +60,7 @@ const products = [
         "1kg": 650
     }
 }, {
-    name: "Bhungka Bateka",
+    name: "Bhungla Bateka",
     image: "images/bhungla bateka.jpeg",
     prices: {
         "50gm": 40,
