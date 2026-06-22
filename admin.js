@@ -1,13 +1,8 @@
+alert("NEW ADMIN JS LOADED");
 let adminEmail =
 localStorage.getItem("loggedInUser");
 
-if(adminEmail !== "felixgandhi84@gmail.com"){
 
-    alert("Access Denied");
-
-    window.location.href =
-    "index.html";
-}
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
