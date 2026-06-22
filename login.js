@@ -40,13 +40,13 @@ window.sendOTP = async function(){
     }
     catch(error){
 
-        console.error(error);
+    console.error(error);
 
-        alert(
-        "Failed to send OTP"
-        );
+    alert(error.code);
 
-    }
+    alert(error.message);
+
+}
 };
 
 window.verifyOTP = async function(){
@@ -84,11 +84,11 @@ window.verifyOTP = async function(){
     }
     catch(error){
 
-        console.error(error);
+    console.error(error);
 
-        alert(
-        "Invalid OTP"
-        );
+    alert(error.code);
 
-    }
+    alert(error.message);
+
+}
 };
