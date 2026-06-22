@@ -1,77 +1,34 @@
-import { auth } from "./firebase.js";
-
 import {
-RecaptchaVerifier,
-signInWithPhoneNumber
-}
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-window.recaptchaVerifier =
-new RecaptchaVerifier(
 auth,
-"recaptcha-container",
-{
-    size: "compact"
+signInWithEmailAndPassword
 }
-);
+from "./firebase.js";
 
-window.sendOTP = async function(){
+window.loginUser = async function(){
 
-    let phoneNumber =
-    document
-    .getElementById("phoneNumber")
-    .value
-    .trim();
+    let email =
+    document.getElementById("loginEmail").value.trim();
+
+    let password =
+    document.getElementById("loginPassword").value.trim();
 
     try{
 
-        let confirmationResult =
-        await signInWithPhoneNumber(
+        let userCredential =
+        await signInWithEmailAndPassword(
             auth,
-            phoneNumber,
-            window.recaptchaVerifier
-        );
-
-        window.confirmationResult =
-        confirmationResult;
-
-        alert("OTP Sent!");
-
-    }
-    catch(error){
-
-    console.error(error);
-
-    alert(error.code);
-
-    alert(error.message);
-
-}
-};
-
-window.verifyOTP = async function(){
-
-    let otp =
-    document
-    .getElementById("otp")
-    .value
-    .trim();
-
-    try{
-
-        let result =
-        await window.confirmationResult.confirm(
-            otp
+            email,
+            password
         );
 
         localStorage.setItem(
             "loggedInUser",
-            result.user.phoneNumber
+            email
         );
 
         localStorage.setItem(
             "userUID",
-            result.user.uid
+            userCredential.user.uid
         );
 
         alert(
@@ -84,11 +41,7 @@ window.verifyOTP = async function(){
     }
     catch(error){
 
-    console.error(error);
+        alert(error.message);
 
-    alert(error.code);
-
-    alert(error.message);
-
+    }
 }
-};

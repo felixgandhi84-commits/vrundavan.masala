@@ -1,14 +1,50 @@
-function registerUser() {
+import {
+auth,
+createUserWithEmailAndPassword
+}
+from "./firebase.js";
 
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+window.registerUser = async function(){
 
-    localStorage.setItem("name", name);
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
+    let name =
+    document.getElementById("name").value.trim();
 
-    alert("Account Created Successfully!");
+    let email =
+    document.getElementById("email").value.trim();
 
-    window.location.href = "login.html";
+    let password =
+    document.getElementById("password").value.trim();
+
+    if(name.length < 3){
+        alert("Enter valid name");
+        return;
+    }
+
+    try{
+
+        let userCredential =
+        await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        localStorage.setItem(
+            "name",
+            name
+        );
+
+        alert(
+        "Account Created Successfully!"
+        );
+
+        window.location.href =
+        "login.html";
+
+    }
+    catch(error){
+
+        alert(error.message);
+
+    }
 }
