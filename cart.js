@@ -35,12 +35,12 @@ function loadCart(){
 
     cartItems.forEach(function(item,index){
 
-    let quantity = item.quantity || 1;
+        let quantity = item.quantity || 1;
 
-    let itemTotal =
-        item.price * quantity;
+        let itemTotal =
+            item.price * quantity;
 
-    total += itemTotal;
+        total += itemTotal;
 
         cartDiv.innerHTML += `
 <div class="cart-item">
@@ -76,8 +76,6 @@ function loadCart(){
         <button onclick="increaseQty(${index})">
             +
         </button>
-
-        
 
     </div>
 
@@ -137,4 +135,9 @@ function removeItem(index){
 
     loadCart();
 }
+
 loadCart();
+
+window.increaseQty = increaseQty;
+window.decreaseQty = decreaseQty;
+window.removeItem = removeItem;

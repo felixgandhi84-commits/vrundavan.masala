@@ -76,27 +76,36 @@ async function loadOrders(){
             }
 
             ordersDiv.innerHTML += `
-            <div class="order-card">
+<div class="order-card">
 
-                <h3>
-                    Status: ${order.status || "Confirmed"}
-                </h3>
+    <div class="order-top">
 
-                <p>
-                    Total: ₹${order.total || 0}
-                </p>
+        <div>
+            <h3>Order #${doc.id.slice(0,8)}</h3>
+            <p class="order-date">
+                ${new Date(order.orderDate).toLocaleString()}
+            </p>
+        </div>
 
-                <p>
-                    Order Date:
-                    ${order.orderDate || ""}
-                </p>
+        <div class="status-badge">
+            ${order.status || "Confirmed"}
+        </div>
 
-                <ul>
-                    ${productsHTML}
-                </ul>
+    </div>
 
-            </div>
-            `;
+    <div class="order-total">
+        ₹${order.total || 0}
+    </div>
+
+    <div class="order-products">
+        <h4>Products Ordered</h4>
+        <ul>
+            ${productsHTML}
+        </ul>
+    </div>
+
+</div>
+`;
         }
     });
 
