@@ -1,3 +1,24 @@
+import { auth } from "./firebase.js";
+
+window.goToCheckout = function(){
+
+    let user =
+    localStorage.getItem("loggedInUser");
+
+    console.log(user);
+
+    if(!user){
+
+        alert("Please Login / Sign Up First");
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+    window.location.href = "checkout.html";
+}
+
 let cartItems =
 JSON.parse(localStorage.getItem("cartItems")) || [];
 
