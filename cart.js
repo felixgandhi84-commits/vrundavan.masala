@@ -85,6 +85,7 @@ function loadCart(){
 
     document.getElementById("total-price").innerText =
     "Total: ₹" + total;
+    
 
     localStorage.setItem(
         "cartItems",

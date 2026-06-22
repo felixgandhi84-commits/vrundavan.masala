@@ -4,7 +4,9 @@ from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
 getFirestore,
 collection,
-getDocs
+getDocs,
+query,
+orderBy
 }
 from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
@@ -39,11 +41,13 @@ async function loadOrders(){
     document.getElementById("orders-list");
 
     ordersDiv.innerHTML = "";
+const q = query(
+    collection(db,"orders"),
+    orderBy("orderDate","desc")
+);
 
-    const snapshot =
-    await getDocs(
-        collection(db,"orders")
-    );
+const snapshot =
+await getDocs(q);
 
     snapshot.forEach(doc => {
 
@@ -62,9 +66,8 @@ async function loadOrders(){
 
                     productsHTML += `
                     <li>
-                        ${p.name}
-                        × ${p.quantity}
-                    </li>
+${p.name} × ${p.quantity}
+</li>
                     `;
                 });
 
@@ -76,7 +79,12 @@ async function loadOrders(){
             }
 
             ordersDiv.innerHTML += `
-<div class="order-card">
+<div class="order-card"
+onclick="
+window.location.href=
+'order-details.html?id=${doc.id}'
+"
+style="cursor:pointer;">
 
     <div class="order-top">
 

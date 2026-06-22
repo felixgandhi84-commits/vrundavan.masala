@@ -6,7 +6,9 @@ getFirestore,
 collection,
 getDocs,
 doc,
-updateDoc
+updateDoc,
+query,
+orderBy
 }
 from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
@@ -47,30 +49,41 @@ const db = getFirestore(app);
 
 async function loadAllOrders(){
 
+    let totalOrders = 0;
+    let totalRevenue = 0;
+    let shippedOrders = 0;
+    let deliveredOrders = 0;
+
     let ordersDiv =
     document.getElementById("admin-orders");
 
     ordersDiv.innerHTML = "";
 
-    const snapshot =
-    await getDocs(
-        collection(db,"orders")
+    const q = query(
+        collection(db,"orders"),
+        orderBy("orderDate","desc")
     );
 
-    console.log(
-        "Total Orders:",
-        snapshot.size
-    );
+    const snapshot =
+    await getDocs(q);
 
     snapshot.forEach(orderDoc => {
 
         let order =
         orderDoc.data();
 
-        console.log(
-            "ORDER:",
-            order
-        );
+        totalOrders++;
+
+        totalRevenue +=
+        Number(order.total || 0);
+
+        if(order.status === "Shipped"){
+            shippedOrders++;
+        }
+
+        if(order.status === "Delivered"){
+            deliveredOrders++;
+        }
 
         let productsHTML = "";
 
@@ -106,7 +119,7 @@ async function loadAllOrders(){
             onchange="updateStatus(
             '${orderDoc.id}',
             this.value)">
-            
+
                 <option value="Confirmed"
                 ${order.status==="Confirmed"
                 ?"selected":""}>
@@ -133,38 +146,82 @@ async function loadAllOrders(){
 
             </select>
 
-            <p>
-                <b>Name:</b>
-                ${order.customerName || ""}
-            </p>
+            <div class="order-info">
 
-            <p>
-                <b>Mobile:</b>
-                ${order.mobile || ""}
-            </p>
+                <p>
+                    <b>Name:</b>
+                    ${order.customerName || ""}
+                </p>
 
-            <p>
-                <b>Address:</b>
-                ${order.address || ""}
-            </p>
+                <p>
+                    <b>Mobile:</b>
+                    ${order.mobile || ""}
+                </p>
 
-            <p>
-                <b>Total:</b>
-                ₹${order.total || 0}
-            </p>
+                <p>
+                    <b>Address:</b>
+                    ${order.address || ""}
+                </p>
 
-            <p>
-                <b>Email:</b>
-                ${order.email || ""}
-            </p>
+                <p>
+                    <b>Order Time:</b>
+                    ${new Date(order.orderDate)
+                    .toLocaleString("en-IN",{
+                        day:"2-digit",
+                        month:"short",
+                        year:"numeric",
+                        hour:"2-digit",
+                        minute:"2-digit"
+                    })}
+                </p>
 
-            <ul>
-                ${productsHTML}
-            </ul>
+                <p>
+                    <b>Total:</b>
+                    ₹${order.total || 0}
+                </p>
+
+                <p>
+                    <b>Email:</b>
+                    ${order.email || ""}
+                </p>
+
+            </div>
+
+            <div class="order-products">
+
+                <h4>
+                    Products Ordered
+                </h4>
+
+                <ul>
+                    ${productsHTML}
+                </ul>
+
+            </div>
 
         </div>
         `;
     });
+
+    document.getElementById(
+    "total-orders"
+    ).innerText =
+    totalOrders;
+
+    document.getElementById(
+    "total-revenue"
+    ).innerText =
+    "₹" + totalRevenue;
+
+    document.getElementById(
+    "shipped-orders"
+    ).innerText =
+    shippedOrders;
+
+    document.getElementById(
+    "delivered-orders"
+    ).innerText =
+    deliveredOrders;
 
     if(ordersDiv.innerHTML === ""){
 
@@ -191,6 +248,8 @@ async function(orderId,newStatus){
         alert(
         "Status Updated Successfully!"
         );
+
+        loadAllOrders();
 
     }
     catch(error){
