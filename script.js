@@ -285,3 +285,11 @@ function getSelectedProductName(card){
 
     return productName + " (" + weight + ")";
 }
+let user =
+localStorage.getItem("loggedInUser");
+
+if(user === "felixgandhi84@gmail.com"){
+
+    document.getElementById("admin-link")
+    .style.display = "inline";
+}
