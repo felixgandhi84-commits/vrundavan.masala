@@ -57,10 +57,20 @@ async function loadAllOrders(){
         collection(db,"orders")
     );
 
+    console.log(
+        "Total Orders:",
+        snapshot.size
+    );
+
     snapshot.forEach(orderDoc => {
 
         let order =
         orderDoc.data();
+
+        console.log(
+            "ORDER:",
+            order
+        );
 
         let productsHTML = "";
 
@@ -83,14 +93,13 @@ async function loadAllOrders(){
 
             productsHTML =
             "<li>No product details found</li>";
-
         }
 
         ordersDiv.innerHTML += `
         <div class="order-card">
 
             <h3>
-                Order Status:
+                Order Status
             </h3>
 
             <select
@@ -191,7 +200,6 @@ async function(orderId,newStatus){
         alert(
         "Status Update Failed!"
         );
-
     }
 };
 
