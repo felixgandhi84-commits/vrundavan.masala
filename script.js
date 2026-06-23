@@ -74,14 +74,18 @@ window.onload = function() {
 
     let user = localStorage.getItem("loggedInUser");
 
-    if(user){
-        document.getElementById("user-name").innerText =
-            "Welcome, " + user;
+   if(user){
 
+    document.getElementById("user-name").style.display =
+        "none";
+
+    if(window.location.pathname.includes("index.html")
+       || window.location.pathname.endsWith("/")){
+        
         document.getElementById("logout-btn").style.display =
             "inline";
     }
-
+}
     let cartItems =
         JSON.parse(localStorage.getItem("cartItems")) || [];
 
