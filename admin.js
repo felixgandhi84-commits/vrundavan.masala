@@ -6,33 +6,45 @@ getFirestore,
 collection,
 getDocs,
 doc,
+getDoc,
 updateDoc,
 query,
 orderBy
 }
 from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-let adminEmail =
-localStorage.getItem("loggedInUser");
+async function checkAdmin(){
 
-if(!adminEmail){
+    let uid =
+    localStorage.getItem("userUID");
 
-    alert("Please Login First");
+    if(!uid){
 
-    window.location.href =
-    "login.html";
+        alert("Please Login First");
 
-    throw new Error("Not Logged In");
-}
+        window.location.href =
+        "login.html";
 
-if(adminEmail !== "felixgandhi84@gmail.com"){
+        return;
+    }
 
-    alert("Access Denied");
+    const adminRef =
+    doc(db,"admins",uid);
 
-    window.location.href =
-    "index.html";
+    const adminSnap =
+    await getDoc(adminRef);
 
-    throw new Error("Not Admin");
+    if(!adminSnap.exists()){
+
+        alert("Access Denied");
+
+        window.location.href =
+        "index.html";
+
+        return;
+    }
+
+    loadAllOrders();
 }
 
 const firebaseConfig = {
@@ -261,5 +273,4 @@ async function(orderId,newStatus){
         );
     }
 };
-
-loadAllOrders();
+checkAdmin();
