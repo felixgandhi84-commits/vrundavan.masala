@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="ai.css">
 </head>
 <body>
 
@@ -57,6 +58,50 @@ target="_blank">
 <script src="products.js"></script>
 <script src="script.js"></script>
 <script src="allproducts.js"></script>
+<!-- AI Assistant -->
+
+<div id="ai-button">
+    🤖
+</div>
+
+<div id="ai-chat">
+
+    <div id="ai-header">
+        Vrundavan AI Assistant
+        <span id="close-ai">✖</span>
+    </div>
+
+    <div id="ai-quick-actions">
+        <button class="ai-chip">🔥 Best Seller</button>
+        <button class="ai-chip">💰 Under ₹200</button>
+        <button class="ai-chip">🍛 Recipe Ideas</button>
+        <button class="ai-chip">🌶️ Spicy Masala</button>
+    </div>
+
+    <div id="ai-messages">
+        <div class="ai-msg">
+            👋 Hello! Ask me anything about our masalas.
+        </div>
+    </div>
+
+    <div id="ai-input-area">
+        <input
+            type="text"
+            id="ai-input"
+            placeholder="Ask anything...">
+
+        <button id="send-ai">
+            Send
+        </button>
+        <button id="voice-ai">
+    🎤
+</button>
+    </div>
+
+</div>
+
+<script src="gemini.js"></script>
+<script src="ai.js"></script>
 
 </body>
 </html>
